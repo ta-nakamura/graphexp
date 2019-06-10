@@ -199,7 +199,7 @@ var graphioGremlin = (function(){
 				run_ajax_request(gremlin_query,server_url,query_type,active_node,message,callback);
 			}
 			else if (COMMUNICATION_PROTOCOL == 'websocket'){
-				let server_url = "ws://"+server_address+":"+server_port+"/gremlin"
+				let server_url = "wss://"+server_address+":"+server_port+"/gremlin"
 				run_websocket_request(gremlin_query,server_url,query_type,active_node,message,callback);
 			}
 			else {
