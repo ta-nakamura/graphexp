@@ -103,19 +103,23 @@ var graphioGremlin = (function(){
 			has_str = ".hasLabel('" + label_field + "')";
 		}
 		if (input_field !== "" && input_string !== "") {
-			has_str += ".has('" + input_field + "',";
-			switch (search_type) {
-				case "eq":
-					if (isInt(input_string)){
-						has_str += filtered_string + ")"
-					} else {
-						has_str += "'" + filtered_string + "')"
+			if (input_field == "id") {
+				has_str += ".hasId('" + input_string + "')"
+			} else {
+				has_str += ".has('" + input_field + "',";
+				switch (search_type) {
+					case "eq":
+						if (isInt(input_string)){
+							has_str += filtered_string + ")"
+						} else {
+							has_str += "'" + filtered_string + "')"
+						}
+						break;
+					case "contains":
+						has_str += "textContains('" + filtered_string + "'))";
+						break;
 					}
-					break;
-				case "contains":
-					has_str += "textContains('" + filtered_string + "'))";
-					break;
-			}
+				}
 		} else if (limit_field === "" || limit_field < 0) {
 				limit_field = node_limit_per_request;
 		}
